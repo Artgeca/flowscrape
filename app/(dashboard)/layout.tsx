@@ -3,7 +3,6 @@ import DesktopSidebar from '@/components/Sidebar';
 import { ModeToggle } from '@/components/ThemeModeToggle';
 import { Separator } from '@/components/ui/separator';
 import { SignedIn, UserButton } from '@clerk/nextjs';
-import { currentUser } from '@clerk/nextjs/server';
 
 const layout = async ({ children }: { children: React.ReactNode; }) => {
   return (
