@@ -4,7 +4,7 @@ CREATE TABLE "Workflow" (
     "userId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "difinition" TEXT NOT NULL,
+    "definition" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "createAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updateAt" DATETIME NOT NULL
