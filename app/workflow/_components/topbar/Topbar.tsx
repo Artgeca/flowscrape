@@ -16,7 +16,7 @@ const Topbar = ({ title, subtitle, workflowId }: Props) => {
   const router = useRouter();
 
   return (
-    <header className='flex p-2 border-b-2 border-separate justify-between w-full h-[60px] sticky top-0 bg-background z-10'>
+    <header className='sticky top-0 z-10 flex h-[60px] w-full border-separate justify-between border-b-2 bg-background p-2'>
       <div className='flex flex-1 gap-1'>
         <TooltipWrapper content='Back'>
           <Button variant={'ghost'} size={'icon'} onClick={() => router.back()}>
@@ -24,15 +24,15 @@ const Topbar = ({ title, subtitle, workflowId }: Props) => {
           </Button>
         </TooltipWrapper>
         <div>
-          <p className='font-bold truncate text-ellipsis'>{title}</p>
+          <p className='truncate text-ellipsis font-bold'>{title}</p>
           {subtitle && (
-            <p className='text-sm truncate text-muted-foreground text-ellipsis'>
+            <p className='truncate text-ellipsis text-sm text-muted-foreground'>
               {subtitle}
             </p>
           )}
         </div>
       </div>
-      <div className='flex justify-end flex-1 gap-1'>
+      <div className='flex flex-1 justify-end gap-1'>
         <SaveBtn workflowId={workflowId} />
       </div>
     </header>

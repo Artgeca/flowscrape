@@ -3,7 +3,15 @@
 import { CreateFlowNode } from '@/lib/workflow/task/createFlowNode';
 import { TaskType } from '@/types/task';
 import { Workflow } from '@prisma/client';
-import { Background, BackgroundVariant, Controls, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
+import {
+  Background,
+  BackgroundVariant,
+  Controls,
+  ReactFlow,
+  useEdgesState,
+  useNodesState,
+  useReactFlow,
+} from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import NodeComponent from './nodes/NodeComponent';
 import { useCallback, useEffect } from 'react';
@@ -16,7 +24,7 @@ const nodeTypes = {
 const snapGrid: [number, number] = [50, 50];
 const fitViewOptions = { padding: 1 };
 
-const FlowEditor = ({ workflow }: { workflow: Workflow; }) => {
+const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const { setViewport, screenToFlowPosition } = useReactFlow();
@@ -30,9 +38,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow; }) => {
       if (!flow.viewport) return;
       const { x = 0, y = 0, zoom = 1 } = flow.viewport;
       setViewport({ x, y, zoom });
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }, [workflow.definition, setNodes, setEdges, setViewport]);
 
   const onDragOver = useCallback((event: React.DragEvent) => {
@@ -55,7 +61,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow; }) => {
   }, []);
 
   return (
-    <main className='w-full h-full'>
+    <main className="h-full w-full">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -69,7 +75,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow; }) => {
         onDragOver={onDragOver}
         onDrop={onDrop}
       >
-        <Controls position='top-left' fitViewOptions={fitViewOptions} />
+        <Controls position="top-left" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
       </ReactFlow>
     </main>

@@ -12,7 +12,7 @@ import { TaskType } from '@/types/task';
 
 export const TaskMenu = () => {
   return (
-    <aside className='w=[340px] min-w-[340px] max-w-[340px] border-r-2 border-separate h-full p-2 px-4 overflow-auto'>
+    <aside className='w=[340px] h-full min-w-[340px] max-w-[340px] border-separate overflow-auto border-r-2 p-2 px-4'>
       <Accordion
         type='multiple'
         className='w-full'
@@ -31,7 +31,7 @@ export const TaskMenu = () => {
   );
 };
 
-export const TaskMenuBtn = ({ taskType }: { taskType: TaskType; }) => {
+export const TaskMenuBtn = ({ taskType }: { taskType: TaskType }) => {
   const task = TaskRegistry[taskType];
 
   const onDragStart = (event: React.DragEvent, type: TaskType) => {
@@ -42,7 +42,7 @@ export const TaskMenuBtn = ({ taskType }: { taskType: TaskType; }) => {
   return (
     <Button
       variant={'secondary'}
-      className='flex items-center justify-between w-full gap-2 border'
+      className='flex w-full items-center justify-between gap-2 border'
       draggable
       onDragStart={(event) => onDragStart(event, taskType)}
     >

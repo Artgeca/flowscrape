@@ -5,7 +5,7 @@ import { useReactFlow } from '@xyflow/react';
 import { CheckIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
-const SaveBtn = ({ workflowId }: { workflowId: string; }) => {
+const SaveBtn = ({ workflowId }: { workflowId: string }) => {
   const { toObject } = useReactFlow();
 
   const saveMutation = useMutation({
