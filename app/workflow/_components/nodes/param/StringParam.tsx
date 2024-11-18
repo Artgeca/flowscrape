@@ -10,12 +10,10 @@ const StringParam = ({ param, value, updateNodeParamValue }: ParamProps) => {
   const id = useId();
 
   return (
-    <div className='w-full p-1 space-y-1'>
+    <div className='w-full space-y-1 p-1'>
       <Label htmlFor={id} className='flex text-xs'>
         {param.name}
-        {param.required && (
-          <p className='px-2 text-red-400'>*</p>
-        )}
+        {param.required && <p className='px-2 text-red-400'>*</p>}
       </Label>
       <Input
         id={id}

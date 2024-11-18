@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma';
 import { auth } from '@clerk/nextjs/server';
 import Editor from '../../_components/Editor';
 
-const page = async ({ params }: { params: { workflowId: string; }; }) => {
+const page = async ({ params }: { params: { workflowId: string } }) => {
   const { workflowId } = params;
   const { userId } = auth();
   if (!userId) return <div>unauthenticated</div>;
@@ -11,7 +11,7 @@ const page = async ({ params }: { params: { workflowId: string; }; }) => {
     where: {
       id: workflowId,
       userId,
-    }
+    },
   });
 
   if (!workflow) return <div>Workflow not found</div>;

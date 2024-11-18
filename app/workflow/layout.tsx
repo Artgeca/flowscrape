@@ -2,9 +2,9 @@ import Logo from '@/components/Logo';
 import { ModeToggle } from '@/components/ThemeModeToggle';
 import { Separator } from '@/components/ui/separator';
 
-const layout = ({ children }: { children: React.ReactNode; }) => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='flex flex-col w-full h-screen'>
+    <div className='flex h-screen w-full flex-col'>
       {children}
       <Separator />
       <footer className='flex items-center justify-between p-2'>

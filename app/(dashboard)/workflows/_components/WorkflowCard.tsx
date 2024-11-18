@@ -5,7 +5,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { WorkflowStatus } from '@/types/workflow';
 import { Workflow } from '@prisma/client';
-import { FileTextIcon, MoreVerticalIcon, PlayIcon, ShuffleIcon, TrashIcon } from 'lucide-react';
+import {
+  FileTextIcon,
+  MoreVerticalIcon,
+  PlayIcon,
+  ShuffleIcon,
+  TrashIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -13,7 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import TooltipWrapper from '@/components/TooltipWrapper';
 import { useState } from 'react';
@@ -24,23 +30,35 @@ const statusColors = {
   [WorkflowStatus.PUBLISHED]: 'bg-primary',
 };
 
-const WorkflowCard = ({ workflow }: { workflow: Workflow; }) => {
+const WorkflowCard = ({ workflow }: { workflow: Workflow }) => {
   const isDraft = workflow.status === WorkflowStatus.DRAFT;
 
   return (
-    <Card className='overflow-hidden border border-separate rounded-lg shadow-sm hover:shadow-md dark:shadow-primary/30'>
-      <CardContent className='p-4 flex items-center justify-between h-[100px]'>
+    <Card className='border-separate overflow-hidden rounded-lg border shadow-sm hover:shadow-md dark:shadow-primary/30'>
+      <CardContent className='flex h-[100px] items-center justify-between p-4'>
         <div className='flex items-center justify-end space-x-3'>
-          <div className={cn('w-10 h-10 rounded-full flex items-center justify-center', statusColors[workflow.status as WorkflowStatus])}>
-            {isDraft ? <FileTextIcon className='w-5 h-5' /> : <PlayIcon className='w-5 h-5 text-white' />}
+          <div
+            className={cn(
+              'flex h-10 w-10 items-center justify-center rounded-full',
+              statusColors[workflow.status as WorkflowStatus]
+            )}
+          >
+            {isDraft ? (
+              <FileTextIcon className='h-5 w-5' />
+            ) : (
+              <PlayIcon className='h-5 w-5 text-white' />
+            )}
           </div>
           <div>
             <h3 className='flex items-center text-base font-bold text-muted-foreground'>
-              <Link href={`/workflow/editor/${workflow.id}`} className='flex items-center hover:underline'>
+              <Link
+                href={`/workflow/editor/${workflow.id}`}
+                className='flex items-center hover:underline'
+              >
                 {workflow.name}
               </Link>
               {isDraft && (
-                <span className='ml-2 px-2 py-0.5 text-sm font-medium bg-yellow-100 text-yellow-800 rounded-full'>
+                <span className='ml-2 rounded-full bg-yellow-100 px-2 py-0.5 text-sm font-medium text-yellow-800'>
                   Draft
                 </span>
               )}
@@ -48,21 +66,36 @@ const WorkflowCard = ({ workflow }: { workflow: Workflow; }) => {
           </div>
         </div>
         <div className='flex items-center space-x-2'>
-          <Link href={`/workflow/editor/${workflow.id}`} className={cn(buttonVariants({
-            variant: 'outline',
-            size: 'sm',
-          }), 'flex items-center gap-2')}>
+          <Link
+            href={`/workflow/editor/${workflow.id}`}
+            className={cn(
+              buttonVariants({
+                variant: 'outline',
+                size: 'sm',
+              }),
+              'flex items-center gap-2'
+            )}
+          >
             <ShuffleIcon size={16} />
             Edit
           </Link>
-          <WorkflowActions workflowName={workflow.name} workflowId={workflow.id} />
+          <WorkflowActions
+            workflowName={workflow.name}
+            workflowId={workflow.id}
+          />
         </div>
       </CardContent>
     </Card>
   );
 };
 
-const WorkflowActions = ({ workflowName, workflowId }: { workflowName: string; workflowId: string; }) => {
+const WorkflowActions = ({
+  workflowName,
+  workflowId,
+}: {
+  workflowName: string;
+  workflowId: string;
+}) => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   return (
@@ -77,7 +110,7 @@ const WorkflowActions = ({ workflowName, workflowId }: { workflowName: string; w
         <DropdownMenuTrigger asChild>
           <Button variant={'outline'} size={'sm'}>
             <TooltipWrapper content={'More actions'}>
-              <div className='flex items-center justify-center w-full h-full'>
+              <div className='flex h-full w-full items-center justify-center'>
                 <MoreVerticalIcon size={18} />
               </div>
             </TooltipWrapper>
@@ -86,7 +119,10 @@ const WorkflowActions = ({ workflowName, workflowId }: { workflowName: string; w
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className='flex items-center gap-2 text-destructive' onSelect={() => setShowDeleteDialog((prev) => !prev)}>
+          <DropdownMenuItem
+            className='flex items-center gap-2 text-destructive'
+            onSelect={() => setShowDeleteDialog((prev) => !prev)}
+          >
             <TrashIcon size={16} />
             Delete
           </DropdownMenuItem>

@@ -8,7 +8,7 @@ import WorkflowCard from './_components/WorkflowCard';
 
 const page = () => {
   return (
-    <div className='flex flex-col flex-1 h-full'>
+    <div className='flex h-full flex-1 flex-col'>
       <div className='flex justify-between'>
         <div className='flex flex-col'>
           <h1 className='text-3xl font-bold'>Workflows</h1>
@@ -29,11 +29,9 @@ const page = () => {
 const UserWorkflowsSkeleton = () => {
   return (
     <div className='space-y-2'>
-      {
-        [1, 2, 3, 4].map((i) => (
-          <Skeleton key={i} className='w-full h-32' />
-        ))
-      }
+      {[1, 2, 3, 4].map((i) => (
+        <Skeleton key={i} className='h-32 w-full' />
+      ))}
     </div>
   );
 };
@@ -43,7 +41,7 @@ const UserWorkflows = async () => {
   if (!workflows) {
     return (
       <Alert variant={'destructive'}>
-        <AlertCircle className='w-4 h-4' />
+        <AlertCircle className='h-4 w-4' />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>
           Something went wrong. Please try again later
@@ -54,8 +52,8 @@ const UserWorkflows = async () => {
 
   if (workflows.length === 0) {
     return (
-      <div className='flex flex-col items-center justify-center h-full gap-4'>
-        <div className='flex items-center justify-center w-20 h-20 rounded-full bg-accent'>
+      <div className='flex h-full flex-col items-center justify-center gap-4'>
+        <div className='flex h-20 w-20 items-center justify-center rounded-full bg-accent'>
           <InboxIcon size={40} className='stroke-primary' />
         </div>
         <div className='flex flex-col gap-1 text-center'>

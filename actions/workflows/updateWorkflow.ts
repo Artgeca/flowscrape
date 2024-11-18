@@ -22,11 +22,12 @@ export async function UpdateWorkflow({
     where: {
       id,
       userId,
-    }
+    },
   });
 
   if (!workflow) throw new Error('workflow not found');
-  if (workflow.status !== WorkflowStatus.DRAFT) throw new Error('workflow is not a draft');
+  if (workflow.status !== WorkflowStatus.DRAFT)
+    throw new Error('workflow is not a draft');
 
   await prisma.workflow.update({
     data: {
@@ -35,7 +36,7 @@ export async function UpdateWorkflow({
     where: {
       id,
       userId,
-    }
+    },
   });
 
   revalidatePath('/workflows');

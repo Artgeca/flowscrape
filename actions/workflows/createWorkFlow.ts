@@ -2,7 +2,10 @@
 
 import prisma from '@/lib/prisma';
 import { CreateFlowNode } from '@/lib/workflow/task/createFlowNode';
-import { createWorkflowSchema, createWorkflowSchemaType } from '@/schema/workflow';
+import {
+  createWorkflowSchema,
+  createWorkflowSchemaType,
+} from '@/schema/workflow';
 import { AppNode } from '@/types/appNode';
 import { TaskType } from '@/types/task';
 import { WorkflowStatus } from '@/types/workflow';
@@ -22,7 +25,7 @@ export async function CreateWorkflow(form: createWorkflowSchemaType) {
     throw new Error('unauthenticated');
   }
 
-  const initialFlow: { nodes: AppNode[], edges: Edge[]; } = {
+  const initialFlow: { nodes: AppNode[]; edges: Edge[] } = {
     nodes: [],
     edges: [],
   };

@@ -1,7 +1,12 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from './ui/breadcrumb';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+} from './ui/breadcrumb';
 import React from 'react';
 import { MobileSidebar } from './Sidebar';
 
@@ -22,8 +27,7 @@ const BreadcrumbHeader = () => {
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </React.Fragment>
-          ))
-          }
+          ))}
         </BreadcrumbList>
       </Breadcrumb>
     </div>

@@ -61,7 +61,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
   }, []);
 
   return (
-    <main className="h-full w-full">
+    <main className='h-full w-full'>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -75,7 +75,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         onDragOver={onDragOver}
         onDrop={onDrop}
       >
-        <Controls position="top-left" fitViewOptions={fitViewOptions} />
+        <Controls position='top-left' fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
       </ReactFlow>
     </main>

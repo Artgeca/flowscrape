@@ -24,7 +24,12 @@ interface Props {
   workflowId: string;
 }
 
-const DeleteWorkflowDialog = ({ open, setOpen, workflowName, workflowId }: Props) => {
+const DeleteWorkflowDialog = ({
+  open,
+  setOpen,
+  workflowName,
+  workflowId,
+}: Props) => {
   const [confirmText, setConfirmText] = useState('');
 
   const deleteMutation = useMutation({
@@ -57,7 +62,9 @@ const DeleteWorkflowDialog = ({ open, setOpen, workflowName, workflowId }: Props
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setConfirmText('')}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={() => setConfirmText('')}>
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             disabled={confirmText !== workflowName || deleteMutation.isPending}
             className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
