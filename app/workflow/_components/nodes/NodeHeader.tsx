@@ -23,8 +23,8 @@ const NodeHeader = ({ taskType }: { taskType: TaskType }) => {
             TODO
           </Badge>
           <Button
-            variant={'ghost'}
-            size={'icon'}
+            variant='ghost'
+            size='icon'
             className='drag-handle cursor-grab'
           >
             <GripVerticalIcon size={20} />
