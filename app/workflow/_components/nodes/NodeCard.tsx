@@ -1,5 +1,6 @@
 'use client';
 
+import useFlowValidation from '@/components/hooks/useFlowValidation';
 import { cn } from '@/lib/utils';
 import { useReactFlow } from '@xyflow/react';
 
@@ -11,6 +12,8 @@ interface Props {
 
 const NodeCard = ({ children, nodeId, isSelected }: Props) => {
   const { getNode, setCenter } = useReactFlow();
+  const { invalidInputs } = useFlowValidation();
+  const hasInvalidInputs = invalidInputs.some((node) => node.nodeId === nodeId);
 
   return (
     <div
@@ -30,7 +33,8 @@ const NodeCard = ({ children, nodeId, isSelected }: Props) => {
       }}
       className={cn(
         'flex w-[420px] border-separate cursor-pointer flex-col gap-1 rounded-md border-2 bg-background text-xs',
-        isSelected && 'border-primary'
+        isSelected && 'border-primary',
+        hasInvalidInputs && 'border-2 border-destructive'
       )}
     >
       {children}
