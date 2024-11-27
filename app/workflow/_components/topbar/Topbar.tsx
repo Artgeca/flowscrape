@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeftIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import SaveBtn from './SaveBtn';
+import ExecuteBtn from './ExecuteBtn';
 
 interface Props {
   title: string;
@@ -19,7 +20,7 @@ const Topbar = ({ title, subtitle, workflowId }: Props) => {
     <header className='sticky top-0 z-10 flex h-[60px] w-full border-separate justify-between border-b-2 bg-background p-2'>
       <div className='flex flex-1 gap-1'>
         <TooltipWrapper content='Back'>
-          <Button variant={'ghost'} size={'icon'} onClick={() => router.back()}>
+          <Button variant='ghost' size='icon' onClick={() => router.back()}>
             <ChevronLeftIcon size={20} />
           </Button>
         </TooltipWrapper>
@@ -33,6 +34,7 @@ const Topbar = ({ title, subtitle, workflowId }: Props) => {
         </div>
       </div>
       <div className='flex flex-1 justify-end gap-1'>
+        <ExecuteBtn workflowId={workflowId} />
         <SaveBtn workflowId={workflowId} />
       </div>
     </header>
