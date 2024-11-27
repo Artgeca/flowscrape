@@ -32,6 +32,7 @@
     "react/jsx-filename-extension": "off",
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-constructed-context-values": "off",
     "no-param-reassign": "off",
     "no-empty": "warn",
     "no-restricted-syntax": "off",

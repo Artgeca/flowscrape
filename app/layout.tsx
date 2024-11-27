@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider
-      afterSignOutUrl={'/sign-in'}
+      afterSignOutUrl='/sign-in'
       appearance={{
         elements: {
           formButtonPrimary:
@@ -27,7 +27,7 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang='en' suppressHydrationWarning={true}>
+      <html lang='en' suppressHydrationWarning>
         <body className={inter.className}>
           <AppProviders>{children}</AppProviders>
           <Toaster richColors />
