@@ -40,7 +40,7 @@ const UserWorkflows = async () => {
   const workflows = await GetWorkflowsForUsers();
   if (!workflows) {
     return (
-      <Alert variant={'destructive'}>
+      <Alert variant='destructive'>
         <AlertCircle className='h-4 w-4' />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>
