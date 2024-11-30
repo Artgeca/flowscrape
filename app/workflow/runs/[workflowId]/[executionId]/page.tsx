@@ -47,5 +47,5 @@ const ExecutionViewerWrapper = async ({
     return <div>Not found</div>;
   }
 
-  return <ExecutionViewer />;
+  return <ExecutionViewer initialData={workflowExecution} />;
 };
