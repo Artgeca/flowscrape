@@ -1,6 +1,7 @@
 'use client';
 
 import { GetWorkflowExecutionWithPhases } from '@/actions/workflows/getWorkflowExecutionWithPhases';
+import { GetWorkflowPhaseDetails } from '@/actions/workflows/getWorkflowPhaseDetails';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -31,6 +32,12 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
     queryFn: () => GetWorkflowExecutionWithPhases(initialData!.id),
     refetchInterval: (q) =>
       q.state.data?.status === WorkflowExecutionStatus.RUNNING ? 1000 : false,
+  });
+
+  const phaseDetails = useQuery({
+    queryKey: ['phaseDetails', selectedPhase],
+    enabled: selectedPhase !== null,
+    queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
   });
 
   const isRunning = query.data?.status === WorkflowExecutionStatus.RUNNING;
@@ -76,12 +83,12 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
             label='Credits consumed'
             value={creditsConsumed}
           />
-          <Separator />
-          <div className='flex items-center justify-center px-4 py-2'>
-            <div className='flex items-center gap-2 text-muted-foreground'>
-              <WorkflowIcon size={20} className='stroke-muted-foreground/80' />
-              <span className='font-semibold'>Phases</span>
-            </div>
+        </div>
+        <Separator />
+        <div className='flex items-center justify-center px-4 py-2'>
+          <div className='flex items-center gap-2 text-muted-foreground'>
+            <WorkflowIcon size={20} className='stroke-muted-foreground/80' />
+            <span className='font-semibold'>Phases</span>
           </div>
         </div>
         <Separator />
@@ -105,6 +112,9 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
           ))}
         </div>
       </aside>
+      <div className='flex h-full w-full'>
+        <pre>{JSON.stringify(phaseDetails.data, null, 4)}</pre>
+      </div>
     </div>
   );
 };
