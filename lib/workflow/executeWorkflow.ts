@@ -6,8 +6,8 @@ import {
 import { ExecutionPhase } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import 'server-only';
-import { waitFor } from '../helper/waitFor';
 import prisma from '../prisma';
+import { ExecutorRegistry } from './executor/registry';
 import { TaskRegistry } from './task/registry';
 
 export async function ExecuteWorkflow(executionId: string) {
@@ -136,7 +136,34 @@ async function executeWorkflowPhase(phase: ExecutionPhase) {
 
   // TODO: decrement user balance ( with required credits )
 
-  // Execute phase simulation
-  await waitFor(2000);
-  const success = Math.random() < 0.7;
+  const success = await executePhase(phase, node);
+
+  await finalizePhase(phase.id, success);
+  return { success };
+}
+
+async function finalizePhase(phaseId: string, success: boolean) {
+  const finalStatus = success
+    ? ExecutionPhaseStatus.COMPLETED
+    : ExecutionPhaseStatus.FAILED;
+
+  await prisma.executionPhase.update({
+    where: { id: phaseId },
+    data: {
+      status: finalStatus,
+      completedAt: new Date(),
+    },
+  });
+}
+
+async function executePhase(
+  phase: ExecutionPhase,
+  node: AppNode
+): Promise<boolean> {
+  const runFn = ExecutorRegistry[node.data.type];
+  if (!runFn) {
+    return false;
+  }
+
+  return runFn();
 }
