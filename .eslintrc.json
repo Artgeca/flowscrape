@@ -42,6 +42,7 @@
     "no-continue": "off",
     "prefer-const": "off",
     "no-await-in-loop": "off",
+    "no-return-assign": "off",
     "import/no-extraneous-dependencies": "off",
     "semi": 0, // let it handle by prettier
     "react/function-component-definition": "off",
