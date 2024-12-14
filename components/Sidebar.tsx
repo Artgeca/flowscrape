@@ -7,12 +7,13 @@ import {
   MenuIcon,
   ShieldCheckIcon,
 } from 'lucide-react';
-import Logo from './Logo';
 import Link from 'next/link';
-import { Button, buttonVariants } from './ui/button';
 import { usePathname } from 'next/navigation';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { useState } from 'react';
+import Logo from './Logo';
+import { Button, buttonVariants } from './ui/button';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import UserAvailableCreditsBadge from './UserAvailableCreditsBadge';
 
 const routes = [
   {
@@ -50,7 +51,9 @@ const DesktopSidebar = () => {
       <div className='flex border-separate items-center justify-center gap-2 border-b-[1px] p-4'>
         <Logo />
       </div>
-      <div className='p-2'>TODO CREDITS</div>
+      <div className='p-2'>
+        <UserAvailableCreditsBadge />
+      </div>
       <div className='flex flex-col p-2'>
         {routes.map((route) => (
           <Link
@@ -84,15 +87,16 @@ export const MobileSidebar = () => {
       <nav className='container flex items-center justify-between px-8'>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant={'ghost'} size={'icon'}>
+            <Button variant='ghost' size='icon'>
               <MenuIcon />
             </Button>
           </SheetTrigger>
           <SheetContent
             className='w-[400px] space-y-4 sm:w-[540px]'
-            side={'left'}
+            side='left'
           >
             <Logo />
+            <UserAvailableCreditsBadge />
             <div className='flex flex-col gap-1'>
               {routes.map((route) => (
                 <Link

@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 import { CreateFlowNode } from '@/lib/workflow/createFlowNode';
 import {
   createWorkflowSchema,
-  createWorkflowSchemaType,
+  CreateWorkflowSchemaType,
 } from '@/schema/workflow';
 import { AppNode } from '@/types/appNode';
 import { TaskType } from '@/types/task';
@@ -13,7 +13,7 @@ import { auth } from '@clerk/nextjs/server';
 import { Edge } from '@xyflow/react';
 import { redirect } from 'next/navigation';
 
-export async function CreateWorkflow(form: createWorkflowSchemaType) {
+export async function CreateWorkflow(form: CreateWorkflowSchemaType) {
   const { success, data } = createWorkflowSchema.safeParse(form);
   if (!success) {
     throw new Error('invalid form data');

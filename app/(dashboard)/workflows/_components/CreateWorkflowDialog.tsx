@@ -1,16 +1,9 @@
 'use client';
 
+import { CreateWorkflow } from '@/actions/workflows/createWorkFlow';
 import CustomDialogHeader from '@/components/CustomDialogHeader';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import {
-  createWorkflowSchema,
-  createWorkflowSchemaType,
-} from '@/schema/workflow';
-import { Layers2Icon, Loader2 } from 'lucide-react';
-import { useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -22,14 +15,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  createWorkflowSchema,
+  CreateWorkflowSchemaType,
+} from '@/schema/workflow';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { CreateWorkflow } from '@/actions/workflows/createWorkFlow';
+import { Layers2Icon, Loader2 } from 'lucide-react';
+import { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
   const [open, setOpen] = useState(false);
 
-  const form = useForm<createWorkflowSchemaType>({
+  const form = useForm<CreateWorkflowSchemaType>({
     resolver: zodResolver(createWorkflowSchema),
     defaultValues: {},
   });
@@ -45,7 +45,7 @@ const CreateWorkflowDialog = ({ triggerText }: { triggerText?: string }) => {
   });
 
   const onSubmit = useCallback(
-    (values: createWorkflowSchemaType) => {
+    (values: CreateWorkflowSchemaType) => {
       toast.loading('Creating workflow...', { id: 'create-workflow' });
       mutate(values);
     },
