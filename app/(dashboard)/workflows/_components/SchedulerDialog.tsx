@@ -1,6 +1,7 @@
 'use client';
 
-import { updateWorkflowCron } from '@/actions/workflows/updateWorkflowCron';
+import { RemoveWorkflowSchedule } from '@/actions/workflows/removeWorkflowSchedule';
+import { UpdateWorkflowCron } from '@/actions/workflows/updateWorkflowCron';
 import CustomDialogHeader from '@/components/CustomDialogHeader';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,6 +12,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useMutation } from '@tanstack/react-query';
 import parser from 'cron-parser';
@@ -28,7 +30,17 @@ const SchedulerDialog = (props: {
   const [readableCron, setReadableCron] = useState('');
 
   const mutation = useMutation({
-    mutationFn: updateWorkflowCron,
+    mutationFn: UpdateWorkflowCron,
+    onSuccess: () => {
+      toast.success('Schedule updated successfully', { id: 'cron' });
+    },
+    onError: () => {
+      toast.error('Something went wrong', { id: 'cron' });
+    },
+  });
+
+  const removeScheduleMutation = useMutation({
+    mutationFn: RemoveWorkflowSchedule,
     onSuccess: () => {
       toast.success('Schedule updated successfully', { id: 'cron' });
     },
@@ -99,6 +111,27 @@ const SchedulerDialog = (props: {
           >
             {validCron ? readableCron : 'Not a valid cron expression'}
           </div>
+
+          {workflowHasValidCron && (
+            <DialogClose asChild>
+              <div className=''>
+                <Button
+                  className='w-full border-destructive text-destructive hover:text-destructive'
+                  variant='outline'
+                  disabled={
+                    mutation.isPending || removeScheduleMutation.isPending
+                  }
+                  onClick={() => {
+                    toast.loading('Removing schedule...', { id: 'cron' });
+                    removeScheduleMutation.mutate(props.workflowId);
+                  }}
+                >
+                  Remove current schedule
+                </Button>
+                <Separator className='my-4' />
+              </div>
+            </DialogClose>
+          )}
         </div>
         <DialogFooter className='gap-2 px-6'>
           <DialogClose asChild>
